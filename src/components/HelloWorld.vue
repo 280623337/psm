@@ -193,6 +193,6 @@ function verifyAnswer() {
   height: 120px;  */
 }
 .ep-checkbox.ep-checkbox--large .ep-checkbox__label {
-    font-size: 18px;
+    font-size: 16px;
 }
 </style>
