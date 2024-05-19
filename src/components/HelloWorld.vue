@@ -181,9 +181,9 @@ function verifyAnswer() {
   white-space: pre-line; */
   white-space: normal;
   word-break: break-word;
-  line-height: 15;
-  margin-bottom: 5px;
-  font-size: 30px;
+  line-height: 3;
+  margin-bottom: 25px;
+  /* font-size: 30px; */
     /* white-space: pre-line;
   
   overflow: hidden;
