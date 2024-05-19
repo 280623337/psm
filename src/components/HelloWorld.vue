@@ -183,7 +183,7 @@ function verifyAnswer() {
   word-break: break-word;
   line-height: 4;
   margin-bottom: 25px;
-  display: block;
+  display: inline-flex;
   /* font-size: 30px; */
     /* white-space: pre-line;
   
