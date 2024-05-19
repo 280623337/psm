@@ -6,28 +6,27 @@
       <el-button v-if="testMode" @click="verifyAnswer">Submit</el-button>
       <el-text v-if="testMode && score >= 0" size="large"><h2>Score: {{ score }}</h2></el-text>
       <br/>
-
       <div v-if="testMode === false" style="text-align: left;word-wrap: break-word;" v-for="(question, index) in questionList" :key="index">
-        <div>
-          {{ index+1 }}. {{ question.question }}
-        <div v-for="(option, oIndex) in question.options" :key="oIndex">
-          <el-checkbox class="checkboxitem" v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' +  option.content" size="large" />
-        </div>
+        <div style="padding:10px;margin-bottom: 10px;">
+          <h2>{{ index+1 + "." + question.question }}</h2>
+          <div v-for="(option, oIndex) in question.options" :key="oIndex">
+            <el-checkbox class="checkboxitem"   v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' +  option.content" size="large"/> 
+          </div>
         </div>
         <br/>
       </div>
       <div v-else style="text-align: left;word-wrap: break-word;" v-for="(question, index) in testQuestionList" >
-        <div v-if="result[index]" style="padding:10px; border: 1px solid red">
-          {{ index+1 }}. {{ question.question }}
+        <div v-if="result[index]" style="padding:10px; border: 1px solid red;margin-bottom: 5px;">
+          <h2>{{ index+1 + "." + question.question }}</h2>
           <div v-for="(option, oIndex) in question.options" :key="oIndex">
-            <el-checkbox class="checkboxitem"  v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' + option.content " size="large" />
+            <el-checkbox class="checkboxitem"   v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' + option.content "  size="large"/>
           </div>
           Answer：{{ result[index]}}
         </div>
-        <div v-else style="padding:10px">
-          {{ index+1 }}. {{ question.question }}
+        <div v-else style="padding:10px;margin-bottom: 5px;">
+          <h2>{{ index+1 + "." + question.question }}</h2>
           <div v-for="(option, oIndex) in question.options" :key="oIndex">
-            <el-checkbox class="checkboxitem"  v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' + option.content " size="large" />
+            <el-checkbox class="checkboxitem"   v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' + option.content "  size="large"/>
           </div>
         </div>
         <br/>
@@ -171,12 +170,18 @@ function verifyAnswer() {
   width: 100%;
   white-space: pre-line; */
   white-space: normal;
-  word-break: break-all;
-  line-height: 1.5;
-  /* white-space: pre-line;
+  word-break: break-word;
+  line-height: 15;
+  margin-bottom: 5px;
+  font-size: 30px;
+    /* white-space: pre-line;
   
   overflow: hidden;
   line-height: 30px;
   height: 120px;  */
+}
+.ep-checkbox.ep-checkbox--large .ep-checkbox__label {
+    font-size: 16px;
+    line-height: 1.2;
 }
 </style>
