@@ -3,8 +3,9 @@
     <el-col :span="20" :offset="2">
       <el-button v-if="testMode === false" @click="setMode" type="info">Switch To Test Mode</el-button>
       <el-button v-else type="danger"  @click="setMode" >Switch To Read Mode</el-button>
-      <el-button v-if="testMode" @click="verifyAnswer">Submit</el-button>
-      <el-text v-if="testMode && score >= 0" size="large"><h2>Score: {{ score }}</h2></el-text>
+      <el-input-number v-if="testMode" v-model="num" :min="1" :max="10" @change="loadTestData" />
+      <el-button v-if="testMode && score >= 0"  @click="loadTestData">Retry</el-button>
+      <el-text v-if="testMode && score >= 0" ><h2>Score: {{ score }}</h2></el-text>
       <br/>
       <div v-if="testMode === false" style="text-align: left;word-wrap: break-word;" v-for="(question, index) in questionList" :key="index">
         <div style="padding:10px;margin-bottom: 10px;">
@@ -31,7 +32,7 @@
         </div>
         <br/>
       </div>
-      <el-button v-if="testMode" @click="verifyAnswer">Submit</el-button>
+      <el-button v-if="testMode && score < 0" @click="verifyAnswer" type="info">Submit</el-button>
     </el-col>
   </el-row>
 </template>
@@ -59,7 +60,12 @@ const score = ref(-1)
 const result = ref<string[]>([])
 const testQuestionList = ref<Question[]>([])
 const answerQuestionList = ref<Question[]>([])
+const num = ref(10)
 load_data()
+
+function handleChange() {
+
+}
 
 function load_data() {
   // 使用fetch函数读取本地JSON文件
@@ -95,12 +101,16 @@ function deepCopy(obj: Question) {
 
 function setMode() {
   testMode.value = !testMode.value
+  loadTestData()
+}
+
+function loadTestData() {
   score.value = -1
   if (testMode.value) {
     testQuestionList.value = []
     answerQuestionList.value = []
     result.value = []
-    const numbers: number[] = generateRandomNumbers(3, 0, questionList.value.length)
+    const numbers: number[] = generateRandomNumbers(num.value, 0, questionList.value.length)
 
     for(let i=0; i<numbers.length;i++) {
       const tmp:Question = deepCopy(questionList.value[numbers[i]])
