@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="24">
-    <el-col :span="24" :offset="0">
+    <el-col :span="23" :offset="1">
       <el-button v-if="testMode === false" @click="setMode" type="info">Switch To Test Mode</el-button>
       <el-button v-else type="danger"  @click="setMode" >Switch To Read Mode</el-button>
       <el-input-number v-if="testMode" v-model="num" :min="1" :max="10" @change="loadTestData" />
