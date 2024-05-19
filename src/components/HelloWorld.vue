@@ -181,9 +181,10 @@ function verifyAnswer() {
   white-space: pre-line; */
   white-space: normal;
   word-break: break-word;
-  line-height: 4;
-  margin-bottom: 25px;
-  display: inline-flex;
+  /* line-height: 4; */
+  margin-bottom: 30px;
+  
+  display: flex ;
   /* font-size: 30px; */
     /* white-space: pre-line;
   
@@ -192,7 +193,6 @@ function verifyAnswer() {
   height: 120px;  */
 }
 .ep-checkbox.ep-checkbox--large .ep-checkbox__label {
-    font-size: 16px;
-    line-height: 1.2;
+    font-size: 18px;
 }
 </style>
