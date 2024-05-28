@@ -14,7 +14,11 @@ import "uno.css";
 
 // If you want to use ElMessage, import it.
 import "element-plus/theme-chalk/src/message.scss";
+import { inject } from '@vercel/analytics';
 
 const app = createApp(App);
+
+inject();
+
 // app.use(ElementPlus);
 app.mount("#app");
