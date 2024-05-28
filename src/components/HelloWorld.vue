@@ -3,7 +3,7 @@
     <el-col :span="23" :offset="1">
       <el-button v-if="testMode === false" @click="setMode" type="info">Switch To Test Mode</el-button>
       <el-button v-else type="danger"  @click="setMode" >Switch To Read Mode</el-button>
-      <el-input-number v-if="testMode" v-model="num" :min="1" :max="10" @change="loadTestData" />
+      <el-input-number v-if="testMode" v-model="num" :min="1" :max="100" @change="loadTestData" />
       <el-button v-if="testMode && score >= 0"  @click="loadTestData">Retry</el-button>
       <el-text v-if="testMode && score >= 0" ><h2>Score: {{ score }}</h2></el-text>
       <br/>
