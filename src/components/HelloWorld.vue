@@ -11,7 +11,8 @@
         <div style="padding:10px;margin-bottom: 10px;">
           <h2>{{ index+1 + "." + question.question }}</h2>
           <div v-for="(option, oIndex) in question.options" :key="oIndex">
-            <el-checkbox class="checkboxitem"   v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' +  option.content" size="large"/> 
+            <el-checkbox class="checkboxitem" v-if="option.correct"  v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' +  option.content" size="large" /> 
+            <el-checkbox class="checkboxitem" v-else :disabled="true" v-model="option.correct" :label="calculateCharFromNumber(oIndex)+ '. ' +  option.content" size="large" /> 
           </div>
         </div>
         <br/>
