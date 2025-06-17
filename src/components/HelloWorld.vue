@@ -1,6 +1,6 @@
 <template>
-  <el-row :gutter="24">
-    <el-col :span="23" :offset="1">
+  <el-row :gutter="24" justify="center">
+    <el-col :xs="24" :sm="20" :md="16" :lg="12" :xl="10" class="center-col">
       <el-button v-if="testMode === false" @click="setMode" type="info">Switch To Test Mode</el-button>
       <el-button v-else type="danger"  @click="setMode" >Switch To Read Mode</el-button>
       <el-input-number v-if="testMode" v-model="num" :min="1" :max="100" @change="loadTestData" />
@@ -39,20 +39,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch, defineProps } from "vue";
 import axios from 'axios';
 import test from "node:test";
 
 interface Option {
   content: string,
   correct: boolean,
-  
 }
-
 interface Question {
   question: string;
   options: Option[];
 }
+
+const props = defineProps<{ examType: string }>();
 
 const questionList = ref<Question[]>([])
 const answer = ref<Question[]>([])
@@ -62,23 +62,31 @@ const result = ref<string[]>([])
 const testQuestionList = ref<Question[]>([])
 const answerQuestionList = ref<Question[]>([])
 const num = ref(10)
-load_data()
-
-function handleChange() {
-
-}
 
 function load_data() {
-  // 使用fetch函数读取本地JSON文件
-  axios.get('/data/all.json')
+  let file = '/data/all.json';
+  if (props.examType === 'security+') file = '/data/security+.json';
+  axios.get(file)
   .then(response => {
-      console.log(response)
       questionList.value = response.data;
       answer.value = response.data;
   })
   .catch(error => {
     console.error('Error reading JSON file:', error);
   });
+}
+
+watch(() => props.examType, () => {
+  load_data();
+  // 切换题库时重置模式和分数
+  testMode.value = false;
+  score.value = -1;
+});
+
+load_data()
+
+function handleChange() {
+
 }
 
 function generateRandomNumbers(count: number = 10, min: number = 1, max: number = 100) : number[] {
@@ -169,6 +177,24 @@ function verifyAnswer() {
 </script>
 
 <style>
+body, #app, html {
+  background: #fdf6e3 !important;
+}
+:root.dark body, :root.dark #app, :root.dark html {
+  background: #181818 !important;
+}
+.center-col {
+  margin: 0 auto;
+  background: #fdf6e3; /* 书本阅读风格淡黄色 */
+  border-radius: 12px;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.04);
+  padding: 32px 24px 24px 24px;
+  min-height: 80vh;
+}
+:root.dark .center-col {
+  background: #232323 !important;
+}
+
 .ep-button {
   margin: 4px;
 }
@@ -177,21 +203,10 @@ function verifyAnswer() {
   margin: 4px;
 }
 .checkboxitem {
-  /* word-wrap: break-all;
-  width: 100%;
-  white-space: pre-line; */
   white-space: normal;
   word-break: break-word;
-  /* line-height: 4; */
   margin-bottom: 30px;
-  
   display: flex ;
-  /* font-size: 30px; */
-    /* white-space: pre-line;
-  
-  overflow: hidden;
-  line-height: 30px;
-  height: 120px;  */
 }
 .ep-checkbox.ep-checkbox--large .ep-checkbox__label {
     font-size: 16px;
