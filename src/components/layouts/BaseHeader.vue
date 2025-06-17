@@ -1,24 +1,24 @@
 <script lang="ts" setup>
 import { toggleDark } from "~/composables";
+import { ref, defineEmits } from 'vue';
+
+const examType = ref('psm');
+const emit = defineEmits(['exam-change']);
+function handleExamChange(val: string) {
+  examType.value = val;
+  emit('exam-change', val);
+}
 </script>
 
 <template>
   <el-menu class="el-menu-demo" mode="horizontal">
     <el-menu-item index="1">Element Plus</el-menu-item>
-    <!-- <el-sub-menu index="2">
-      <template #title>Workspace</template>
-      <el-menu-item index="2-1">item one</el-menu-item>
-      <el-menu-item index="2-2">item two</el-menu-item>
-      <el-menu-item index="2-3">item three</el-menu-item>
-      <el-sub-menu index="2-4">
-        <template #title>item four</template>
-        <el-menu-item index="2-4-1">item one</el-menu-item>
-        <el-menu-item index="2-4-2">item two</el-menu-item>
-        <el-menu-item index="2-4-3">item three</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu> -->
-    <!-- <el-menu-item index="3" disabled>Info</el-menu-item> -->
-    <!-- <el-menu-item index="4">Orders</el-menu-item> -->
+    <el-menu-item index="2">
+      <el-select v-model="examType" style="width: 140px" @change="handleExamChange">
+        <el-option label="PSM" value="psm" />
+        <el-option label="Security+" value="security+" />
+      </el-select>
+    </el-menu-item>
     <el-menu-item h="full" @click="toggleDark()">
       <button
         class="border-none w-full bg-transparent cursor-pointer"
